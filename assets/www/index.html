@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>PhoneGap</title>
+<script type="text/javascript" src="cordova-2.4.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="LocalNotification.js"></script>
+<script type="text/javascript">
+	document.addEventListener("deviceready", appReady, false);
+
+	function appReady() {
+		console.log("Device ready");		
+		var test = document.createElement("DIV");
+		test.setAttribute("id", "tester");
+		test.innerHTML = "TRY NOW";
+		test.addEventListener("click", function(){testera();});
+		document.body.appendChild(test);
+		
+		if (!window.plugins) {
+			window.plugins = {};
+		}
+		if (!window.plugins.localNotification) {
+			window.plugins.localNotification = cordova.require("cordova/plugin/LocalNotification");
+		}
+	}
+	function testera(){
+		var mtitle = document.getElementById("title").value;
+		var mcontent = document.getElementById("message").value;
+		var mID = document.getElementById("msgID").value;
+		
+		window.plugins.localNotification.add({
+			date : new Date(),
+			message : mcontent,
+			ticker : mtitle,
+			repeatDaily : false,
+			id : mID
+		});
+	}
+	
+	document.addEventListener("deviceready", appReady, false);
+</script>
+<style>
+	#tester{
+		background: none repeat scroll 0 0 #666666;
+		color: #FFFFFF;
+		display: block;
+		margin: auto;
+		padding: 10px 20px;
+		text-align: center;
+		width: 80%;
+	}
+</style>
+</head>
+<body>
+	<h1>Hello Android Notifications!</h1><br/>
+	<input type="text" name="title" id="title" value=""/><br/>
+	<input type="text" name="message" id="message" value=""/><br/>
+	<input type="text" name="msgID" id="msgID" value="123"/><br/><br/>
+	
+</body>
+</html>
